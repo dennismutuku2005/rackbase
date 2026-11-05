@@ -460,8 +460,8 @@ export default function RoutingPage() {
           {/* Ping Console Output */}
           <div className="mt-6 bg-slate-950 rounded-2xl p-5 border border-slate-800 text-slate-200 font-mono text-xs shadow-inner">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400 text-[11px]">
-              <span>ROUTEROS TERMINAL SIMULATOR</span>
-              <span>ICMP 64 BYTES</span>
+              <span>RouterOS terminal simulator</span>
+              <span>ICMP 64 bytes</span>
             </div>
 
             <div className="mt-4 space-y-1.5 text-slate-300">
@@ -471,7 +471,7 @@ export default function RoutingPage() {
                 </div>
               ) : pingResults ? (
                 <>
-                  <p className="text-slate-400">PING {pingResults.target}: 56 data bytes</p>
+                  <p className="text-slate-400">Ping {pingResults.target}: 56 data bytes</p>
                   {pingResults.times.map((ms, idx) => (
                     <p key={idx} className="text-emerald-400">
                       64 bytes from {pingResults.target}: icmp_seq={idx + 1} ttl=58 time={ms}ms
@@ -479,12 +479,12 @@ export default function RoutingPage() {
                   ))}
                   <div className="mt-3 pt-3 border-t border-slate-800 text-slate-400">
                     <p>
-                      --- {pingResults.target} ping statistics ---
+                      Ping statistics for {pingResults.target}:
                       <br />
                       {pingResults.transmitted} packets transmitted, {pingResults.received} received,{" "}
                       <span className="text-emerald-400">{pingResults.loss} packet loss</span>
                       <br />
-                      rtt min/avg/max = {pingResults.min}/{pingResults.avg}/{pingResults.max}
+                      Round-trip min/avg/max = {pingResults.min}/{pingResults.avg}/{pingResults.max}
                     </p>
                   </div>
                 </>

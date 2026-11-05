@@ -59,7 +59,7 @@ export default function InterfacesPage() {
 
         {/* Router Selection Dropdown */}
         <div className="flex items-center gap-3">
-          <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider">Device</label>
+          <label className="text-xs font-medium text-slate-500">Device</label>
           <div className="relative inline-block">
             <select
               value={selectedRouterId}
@@ -169,8 +169,8 @@ export default function InterfacesPage() {
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[11px] font-mono text-slate-400">SYS VOLT: 24.2V</span>
-              <span className="text-[11px] font-mono text-slate-400">TEMP: 38°C</span>
+              <span className="text-[11px] font-mono text-slate-400">Voltage: 24.2V</span>
+              <span className="text-[11px] font-mono text-slate-400">Temp: 38°C</span>
             </div>
           </div>
 

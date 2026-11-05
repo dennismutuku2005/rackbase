@@ -100,7 +100,7 @@ export function NetworkAvailabilityLineChart() {
             </h3>
           </div>
           <div className="flex items-baseline gap-2.5 mt-1">
-            <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+            <span className="text-2xl sm:text-3xl font-bold text-slate-900 tracking-tight">
               99.82%
             </span>
             <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">

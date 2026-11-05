@@ -1,4 +1,12 @@
+import { Lato } from "next/font/google";
 import "./globals.css";
+
+const lato = Lato({
+  subsets: ["latin"],
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato",
+  display: "swap",
+});
 
 export const metadata = {
   title: "Rackbase - Network Equipment & Incident Management",
@@ -7,7 +15,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="h-full antialiased">
+    <html lang="en" className={`h-full antialiased ${lato.variable}`}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -16,7 +24,7 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full flex flex-col font-sans bg-[#F4F6F8] text-[#1E293B]">
+      <body className={`min-h-full flex flex-col ${lato.className} bg-[#F4F6F8] text-[#1E293B]`}>
         {children}
       </body>
     </html>

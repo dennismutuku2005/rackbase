@@ -76,12 +76,12 @@ export default function DashboardHomePage() {
       {/* Top Banner / Welcome Row */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <span className="text-xs font-semibold text-emerald-600 tracking-wide uppercase">
-            Network Operations Center
-          </span>
-          <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 tracking-tight mt-0.5">
+          <p className="text-xs font-medium text-emerald-600">
+            Network operations center
+          </p>
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
             Operational dashboard
-          </h2>
+          </h1>
           <p className="text-xs text-slate-500 mt-0.5">
             Real-time MikroTik routerboards, wireless radio sectors, and active incident response
           </p>
