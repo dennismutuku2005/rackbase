@@ -81,39 +81,39 @@ export default function MaintenancePage() {
 
       {/* KPI Stats Strip */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-sky-50 text-sky-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center font-bold flex-shrink-0">
             <Calendar className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-sky-600 font-medium">Upcoming scheduled</div>
-            <div className="text-base font-bold text-slate-800">{scheduledCount}</div>
+            <div className="text-lg font-bold text-slate-800">{scheduledCount}</div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold flex-shrink-0">
             <Clock className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-amber-600 font-medium">In progress</div>
-            <div className="text-base font-bold text-amber-700">{inProgressCount}</div>
+            <div className="text-lg font-bold text-amber-700">{inProgressCount}</div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold flex-shrink-0">
             <CheckCircle2 className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-emerald-600 font-medium">Completed records</div>
-            <div className="text-base font-bold text-emerald-700">{completedCount}</div>
+            <div className="text-lg font-bold text-emerald-700">{completedCount}</div>
           </div>
         </div>
       </div>
 
       {/* Filter and Search */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-2.5">
+      <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex flex-col sm:flex-row items-center justify-between gap-2.5">
         <div className="relative w-full sm:max-w-sm">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
@@ -141,7 +141,7 @@ export default function MaintenancePage() {
       </div>
 
       {/* Maintenance Table */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] overflow-hidden">
         {filteredMaintenance.length === 0 ? (
           <EmptyState
             title="No maintenance records found"

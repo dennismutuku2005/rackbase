@@ -83,15 +83,15 @@ export default function AccessPointsPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 shadow-xs grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+      <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-12 gap-2.5">
         <div className="sm:col-span-6 relative">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Search by AP name, IP, MAC address, or tower location..."
-            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none transition-all"
+            placeholder="Search by AP name, model, MAC address, or tower location..."
+            className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none transition-all"
           />
         </div>
 
@@ -99,7 +99,7 @@ export default function AccessPointsPage() {
           <select
             value={parentRouterFilter}
             onChange={(e) => setParentRouterFilter(e.target.value)}
-            className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none"
+            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none cursor-pointer"
           >
             <option value="all">All parent routers</option>
             {routers.map((r) => (
@@ -114,7 +114,7 @@ export default function AccessPointsPage() {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="w-full px-2.5 py-1.5 text-xs rounded-lg border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none"
+            className="w-full px-2.5 py-1.5 text-xs rounded-xl border border-slate-200 bg-slate-50 focus:bg-white focus:border-emerald-500 focus:outline-none cursor-pointer"
           >
             <option value="all">All statuses</option>
             <option value="Online">Online</option>
@@ -125,7 +125,7 @@ export default function AccessPointsPage() {
       </div>
 
       {/* Access Points Table */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] overflow-hidden">
         {filteredAps.length === 0 ? (
           <EmptyState
             title="No access points found"

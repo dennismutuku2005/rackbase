@@ -91,44 +91,44 @@ export default function IncidentsPage() {
       </div>
 
       {/* KPI Stats Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center font-bold">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center font-bold flex-shrink-0">
             <AlertOctagon className="w-4 h-4" />
           </div>
           <div>
-            <div className="text-[10px] text-slate-400">Total logged</div>
-            <div className="text-base font-bold text-slate-800">{incidents.length}</div>
+            <div className="text-[10px] text-slate-400 font-medium">Total logged</div>
+            <div className="text-lg font-bold text-slate-800">{incidents.length}</div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold flex-shrink-0">
             <Flame className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-rose-600 font-medium">Critical unresolved</div>
-            <div className="text-base font-bold text-rose-700">{criticalOpenCount}</div>
+            <div className="text-lg font-bold text-rose-700">{criticalOpenCount}</div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold flex-shrink-0">
             <Clock className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-amber-600 font-medium">In progress</div>
-            <div className="text-base font-bold text-amber-700">{inProgressCount}</div>
+            <div className="text-lg font-bold text-amber-700">{inProgressCount}</div>
           </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
+          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold flex-shrink-0">
             <CheckCircle2 className="w-4 h-4" />
           </div>
           <div>
             <div className="text-[10px] text-emerald-600 font-medium">Resolved</div>
-            <div className="text-base font-bold text-emerald-700">{resolvedCount}</div>
+            <div className="text-lg font-bold text-emerald-700">{resolvedCount}</div>
           </div>
         </div>
       </div>
@@ -193,7 +193,7 @@ export default function IncidentsPage() {
       </div>
 
       {/* Incidents Table */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] overflow-hidden">
         {filteredIncidents.length === 0 ? (
           <EmptyState
             title="No incidents found"

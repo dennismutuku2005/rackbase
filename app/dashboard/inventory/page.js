@@ -178,7 +178,7 @@ export default function InventoryPage() {
       </div>
 
       {/* Filter and Search Controls */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 shadow-xs space-y-3">
+      <div className="bg-white rounded-2xl border border-slate-100/90 p-4 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] space-y-3">
         {/* Type Filter Pills in Normal Sentence Case */}
         <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-100">
           <div className="flex items-center gap-1 bg-slate-100 p-0.5 rounded-lg">
@@ -282,7 +282,7 @@ export default function InventoryPage() {
       </div>
 
       {/* Inventory Table */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] overflow-hidden">
         {filteredList.length === 0 ? (
           <EmptyState
             title="No equipment found"
