@@ -19,16 +19,32 @@ import {
   ChevronRight,
   LogOut,
   X,
+  Activity,
+  Server,
+  Wifi,
+  Route,
 } from "lucide-react";
 
 export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }) {
   const pathname = usePathname();
-  const { user, logout, sidebarCollapsed, setSidebarCollapsed, incidents, routers, accessPoints } = useRackbase();
+  const {
+    user,
+    logout,
+    sidebarCollapsed,
+    setSidebarCollapsed,
+    incidents,
+    routers,
+    accessPoints,
+    routerInterfaces = [],
+    wirelessClients = [],
+  } = useRackbase();
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   const openIncidentsCount = incidents.filter(
     (i) => i.status === "Open" || i.status === "Investigating" || i.status === "In Progress"
   ).length;
+
+  const activePortsCount = routerInterfaces.filter((i) => i.status === "Up").length;
 
   const navSections = [
     {
@@ -40,10 +56,17 @@ export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }
           icon: LayoutDashboard,
           badge: null,
         },
+        {
+          name: "Live traffic",
+          href: "/dashboard/traffic",
+          icon: Activity,
+          badge: "Live",
+          badgeAlert: false,
+        },
       ],
     },
     {
-      label: "Network",
+      label: "Network & Hardware",
       items: [
         {
           name: "Inventory",
@@ -62,6 +85,24 @@ export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }
           href: "/dashboard/access-points",
           icon: Radio,
           badge: accessPoints.length,
+        },
+        {
+          name: "Active ports",
+          href: "/dashboard/interfaces",
+          icon: Server,
+          badge: activePortsCount ? `${activePortsCount} Up` : null,
+        },
+        {
+          name: "Wireless clients",
+          href: "/dashboard/wireless",
+          icon: Wifi,
+          badge: wirelessClients.length ? `${wirelessClients.length}` : null,
+        },
+        {
+          name: "IP & routing",
+          href: "/dashboard/routing",
+          icon: Route,
+          badge: null,
         },
       ],
     },

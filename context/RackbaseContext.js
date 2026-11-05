@@ -11,6 +11,10 @@ import {
   initialMaintenance,
   initialActivityLogs,
   initialEquipmentModels,
+  initialRouterInterfaces,
+  initialWirelessClients,
+  initialDhcpLeases,
+  initialRoutingTable,
 } from "@/lib/mockData";
 
 const RackbaseContext = createContext(null);
@@ -26,6 +30,10 @@ export function RackbaseProvider({ children }) {
   const [accessPoints, setAccessPoints] = useState([]);
   const [otherEquipment, setOtherEquipment] = useState([]);
   const [equipmentModels, setEquipmentModels] = useState([]);
+  const [routerInterfaces, setRouterInterfaces] = useState([]);
+  const [wirelessClients, setWirelessClients] = useState([]);
+  const [dhcpLeases, setDhcpLeases] = useState([]);
+  const [routingTable, setRoutingTable] = useState([]);
   const [incidents, setIncidents] = useState([]);
   const [maintenance, setMaintenance] = useState([]);
   const [activityLogs, setActivityLogs] = useState([]);
@@ -93,6 +101,34 @@ export function RackbaseProvider({ children }) {
       else {
         setEquipmentModels(initialEquipmentModels);
         localStorage.setItem("rackbase_equipment_models", JSON.stringify(initialEquipmentModels));
+      }
+
+      const savedIfaces = localStorage.getItem("rackbase_router_interfaces");
+      if (savedIfaces) setRouterInterfaces(JSON.parse(savedIfaces));
+      else {
+        setRouterInterfaces(initialRouterInterfaces);
+        localStorage.setItem("rackbase_router_interfaces", JSON.stringify(initialRouterInterfaces));
+      }
+
+      const savedClients = localStorage.getItem("rackbase_wireless_clients");
+      if (savedClients) setWirelessClients(JSON.parse(savedClients));
+      else {
+        setWirelessClients(initialWirelessClients);
+        localStorage.setItem("rackbase_wireless_clients", JSON.stringify(initialWirelessClients));
+      }
+
+      const savedLeases = localStorage.getItem("rackbase_dhcp_leases");
+      if (savedLeases) setDhcpLeases(JSON.parse(savedLeases));
+      else {
+        setDhcpLeases(initialDhcpLeases);
+        localStorage.setItem("rackbase_dhcp_leases", JSON.stringify(initialDhcpLeases));
+      }
+
+      const savedRoutes = localStorage.getItem("rackbase_routing_table");
+      if (savedRoutes) setRoutingTable(JSON.parse(savedRoutes));
+      else {
+        setRoutingTable(initialRoutingTable);
+        localStorage.setItem("rackbase_routing_table", JSON.stringify(initialRoutingTable));
       }
     } catch (e) {
       console.error("Failed to read from localStorage", e);
@@ -462,6 +498,48 @@ export function RackbaseProvider({ children }) {
     }
   };
 
+  // MikroTik Interface Controls
+  const toggleInterfaceStatus = (id) => {
+    const target = routerInterfaces.find((i) => i.id === id);
+    const nextStatus = target?.status === "Up" ? "Down" : "Up";
+    const updated = routerInterfaces.map((iface) => {
+      if (iface.id === id) {
+        return {
+          ...iface,
+          status: nextStatus,
+          linkSpeed: nextStatus === "Down" ? "-" : iface.linkSpeed === "-" ? "1 Gbps" : iface.linkSpeed,
+        };
+      }
+      return iface;
+    });
+    saveState("rackbase_router_interfaces", updated, setRouterInterfaces);
+    const actionLabel = nextStatus === "Up" ? "enabled" : "disabled";
+    logActivity("Port Toggled", `Interface ${id} (${target?.name || ""}) was ${actionLabel}.`, id, "Interface");
+    addToast(`Interface ${target?.name || id} ${actionLabel}`);
+  };
+
+  // DHCP Lease Management
+  const addDhcpLease = (leaseData) => {
+    const id = `LS-${Date.now().toString().slice(-4)}`;
+    const newLease = {
+      id,
+      ...leaseData,
+      status: "Bound",
+      expiresAfter: "23h 59m",
+      lastSeen: "Just now",
+    };
+    const updated = [newLease, ...dhcpLeases];
+    saveState("rackbase_dhcp_leases", updated, setDhcpLeases);
+    addToast(`Static lease for ${newLease.ipAddress} created`);
+    return newLease;
+  };
+
+  const removeDhcpLease = (id) => {
+    const updated = dhcpLeases.filter((l) => l.id !== id);
+    saveState("rackbase_dhcp_leases", updated, setDhcpLeases);
+    addToast("DHCP lease removed");
+  };
+
   // User Profile & Settings
   const updateUserProfile = (profileData) => {
     const updated = { ...user, ...profileData };
@@ -486,6 +564,10 @@ export function RackbaseProvider({ children }) {
     saveState("rackbase_maintenance", initialMaintenance, setMaintenance);
     saveState("rackbase_activity_logs", initialActivityLogs, setActivityLogs);
     saveState("rackbase_user", initialUser, setUser);
+    saveState("rackbase_router_interfaces", initialRouterInterfaces, setRouterInterfaces);
+    saveState("rackbase_wireless_clients", initialWirelessClients, setWirelessClients);
+    saveState("rackbase_dhcp_leases", initialDhcpLeases, setDhcpLeases);
+    saveState("rackbase_routing_table", initialRoutingTable, setRoutingTable);
     addToast("System data reset to initial demo state", "info");
   };
 
@@ -498,6 +580,13 @@ export function RackbaseProvider({ children }) {
     otherEquipment,
     equipmentModels,
     addEquipmentModel,
+    routerInterfaces,
+    toggleInterfaceStatus,
+    wirelessClients,
+    dhcpLeases,
+    addDhcpLease,
+    removeDhcpLease,
+    routingTable,
     incidents,
     maintenance,
     activityLogs,
