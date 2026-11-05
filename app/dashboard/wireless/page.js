@@ -29,26 +29,36 @@ export default function WirelessPage() {
   const fairClients = wirelessClients.filter((c) => c.signalDbm < -75).length;
 
   const filteredClients = useMemo(() => {
-    return wirelessClients.filter((client) => {
+    const q = (searchQuery || "").trim().toLowerCase();
+    return (wirelessClients || []).filter((client) => {
+      if (!client) return false;
+
+      const mac = (client.macAddress || client.mac || "").toLowerCase();
+      const ip = (client.ipAddress || "").toLowerCase();
+      const ap = (client.apName || "").toLowerCase();
+      const name = (client.clientName || client.hostname || "").toLowerCase();
+
       const matchesSearch =
-        client.mac.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        client.ipAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        client.apName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (client.hostname && client.hostname.toLowerCase().includes(searchQuery.toLowerCase()));
+        !q ||
+        mac.includes(q) ||
+        ip.includes(q) ||
+        ap.includes(q) ||
+        name.includes(q);
 
       const matchesAp = selectedApFilter === "all" || client.apName === selectedApFilter;
 
       let matchesSignal = true;
-      if (signalFilter === "excellent") matchesSignal = client.signalDbm >= -65;
-      else if (signalFilter === "good") matchesSignal = client.signalDbm < -65 && client.signalDbm >= -75;
-      else if (signalFilter === "fair") matchesSignal = client.signalDbm < -75;
+      const sig = typeof client.signalDbm === "number" ? client.signalDbm : -70;
+      if (signalFilter === "excellent") matchesSignal = sig >= -65;
+      else if (signalFilter === "good") matchesSignal = sig < -65 && sig >= -75;
+      else if (signalFilter === "fair") matchesSignal = sig < -75;
 
       return matchesSearch && matchesAp && matchesSignal;
     });
   }, [wirelessClients, searchQuery, selectedApFilter, signalFilter]);
 
   const handleDeauth = (mac, name) => {
-    addToast(`Deauthenticated client ${name || mac} - reconnecting...`, "info");
+    addToast(`Deauthenticated station ${name || mac} - reconnecting...`, "info");
   };
 
   return (
@@ -267,17 +277,21 @@ export default function WirelessPage() {
                     <tr key={client.id} className="hover:bg-slate-50/70 transition-colors">
                       <td className="py-3 px-4">
                         <div className="flex flex-col">
-                          <span className="font-semibold text-slate-900 font-mono text-xs">{client.mac}</span>
-                          <span className="text-[11px] text-slate-400">{client.hostname || "CPE Station"}</span>
+                          <span className="font-semibold text-slate-900 font-mono text-xs">
+                            {client.macAddress || client.mac || "—"}
+                          </span>
+                          <span className="text-[11px] text-slate-400">
+                            {client.clientName || client.hostname || "CPE station"}
+                          </span>
                         </div>
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex items-center gap-1.5 font-medium text-slate-800">
                           <Radio className="w-3.5 h-3.5 text-slate-400" />
-                          <span>{client.apName}</span>
+                          <span>{client.apName || "—"}</span>
                         </div>
                       </td>
-                      <td className="py-3 px-4 font-mono text-slate-600">{client.ipAddress}</td>
+                      <td className="py-3 px-4 font-mono text-slate-600">{client.ipAddress || "—"}</td>
                       <td className="py-3 px-4">
                         <span
                           className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold font-mono ${
@@ -288,19 +302,24 @@ export default function WirelessPage() {
                               : "bg-rose-50 text-rose-700 border border-rose-100"
                           }`}
                         >
-                          {client.signalDbm} dBm
+                          {client.signalDbm ?? -70} dBm
                         </span>
                       </td>
-                      <td className="py-3 px-4 font-mono text-slate-600">{client.snr} dB</td>
+                      <td className="py-3 px-4 font-mono text-slate-600">{client.snr ?? 30} dB</td>
                       <td className="py-3 px-4">
-                        <span className="font-bold text-slate-800 font-mono">{client.ccq}%</span>
+                        <span className="font-bold text-slate-800 font-mono">{client.ccq ?? 95}%</span>
                       </td>
-                      <td className="py-3 px-4 font-mono text-blue-600">{client.txRate}</td>
-                      <td className="py-3 px-4 font-mono text-emerald-600">{client.rxRate}</td>
-                      <td className="py-3 px-4 font-mono text-slate-500 text-[11px]">{client.uptime}</td>
+                      <td className="py-3 px-4 font-mono text-blue-600">{client.txRate || "—"}</td>
+                      <td className="py-3 px-4 font-mono text-emerald-600">{client.rxRate || "—"}</td>
+                      <td className="py-3 px-4 font-mono text-slate-500 text-[11px]">{client.uptime || "—"}</td>
                       <td className="py-3 px-4 text-right">
                         <button
-                          onClick={() => handleDeauth(client.mac, client.hostname)}
+                          onClick={() =>
+                            handleDeauth(
+                              client.macAddress || client.mac,
+                              client.clientName || client.hostname
+                            )
+                          }
                           type="button"
                           className="px-2.5 py-1 rounded-lg text-[11px] font-semibold bg-slate-100 text-slate-600 hover:bg-rose-50 hover:text-rose-600 transition-all"
                         >

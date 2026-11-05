@@ -21,10 +21,7 @@ export default function DashboardShell({ children }) {
   if (!isClient) {
     return (
       <div className="min-h-screen bg-[#F4F6F8] flex items-center justify-center">
-        <div className="flex items-center gap-2.5">
-          <div className="w-4 h-4 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
-          <span className="text-xs font-medium text-slate-500">Loading Rackbase...</span>
-        </div>
+        <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }

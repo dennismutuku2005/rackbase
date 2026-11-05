@@ -20,8 +20,10 @@ export default function ActivityLogsPage() {
   const [actionFilter, setActionFilter] = useState("all");
 
   const filteredLogs = useMemo(() => {
-    return activityLogs.filter((log) => {
-      if (actionFilter !== "all" && !log.action.toLowerCase().includes(actionFilter.toLowerCase())) {
+    return (activityLogs || []).filter((log) => {
+      if (!log) return false;
+      const action = (log.action || "").toLowerCase();
+      if (actionFilter !== "all" && !action.includes((actionFilter || "").toLowerCase())) {
         return false;
       }
       if (searchQuery.trim()) {
@@ -29,7 +31,7 @@ export default function ActivityLogsPage() {
         return (
           log.description?.toLowerCase().includes(q) ||
           log.user?.toLowerCase().includes(q) ||
-          log.action?.toLowerCase().includes(q) ||
+          action.includes(q) ||
           log.targetId?.toLowerCase().includes(q)
         );
       }

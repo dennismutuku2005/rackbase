@@ -29,11 +29,19 @@ export default function InterfacesPage() {
   const selectedPort = routerInterfaces.find((p) => p.id === selectedPortId) || routerInterfaces[0];
 
   const filteredPorts = useMemo(() => {
-    return routerInterfaces.filter((p) => {
+    const q = (searchQuery || "").trim().toLowerCase();
+    return (routerInterfaces || []).filter((p) => {
+      if (!p) return false;
+      const name = (p.name || "").toLowerCase();
+      const comment = (p.comment || "").toLowerCase();
+      const type = (p.type || "").toLowerCase();
+
       const matchesSearch =
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.comment.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.type.toLowerCase().includes(searchQuery.toLowerCase());
+        !q ||
+        name.includes(q) ||
+        comment.includes(q) ||
+        type.includes(q);
+
       const matchesStatus =
         statusFilter === "all" ||
         (statusFilter === "up" && p.status === "Up") ||

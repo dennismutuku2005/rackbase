@@ -40,30 +40,46 @@ export default function RoutingPage() {
   });
 
   const filteredRoutes = useMemo(() => {
-    return routingTable.filter((r) => {
+    const q = (searchQuery || "").trim().toLowerCase();
+    return (routingTable || []).filter((r) => {
+      if (!r) return false;
+      const dst = (r.dstAddress || "").toLowerCase();
+      const gw = (r.gateway || "").toLowerCase();
+      const iface = (r.interface || "").toLowerCase();
+      const type = (r.type || "").toLowerCase();
+
       const matchesSearch =
-        r.dstAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.gateway.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.interface.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.type.toLowerCase().includes(searchQuery.toLowerCase());
+        !q ||
+        dst.includes(q) ||
+        gw.includes(q) ||
+        iface.includes(q) ||
+        type.includes(q);
 
       const matchesType =
         routeTypeFilter === "all" ||
-        (routeTypeFilter === "static" && r.type.includes("Static")) ||
-        (routeTypeFilter === "connected" && r.type.includes("Connected")) ||
-        (routeTypeFilter === "dynamic" && (r.type.includes("OSPF") || r.type.includes("BGP")));
+        (routeTypeFilter === "static" && r.type?.includes("Static")) ||
+        (routeTypeFilter === "connected" && r.type?.includes("Connected")) ||
+        (routeTypeFilter === "dynamic" && (r.type?.includes("OSPF") || r.type?.includes("BGP")));
 
       return matchesSearch && matchesType;
     });
   }, [routingTable, searchQuery, routeTypeFilter]);
 
   const filteredLeases = useMemo(() => {
-    return dhcpLeases.filter((l) => {
+    const q = (searchQuery || "").trim().toLowerCase();
+    return (dhcpLeases || []).filter((l) => {
+      if (!l) return false;
+      const ip = (l.ipAddress || "").toLowerCase();
+      const mac = (l.macAddress || "").toLowerCase();
+      const host = (l.hostName || l.hostname || "").toLowerCase();
+      const comment = (l.comment || "").toLowerCase();
+
       return (
-        l.ipAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        l.macAddress.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        l.hostName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (l.comment && l.comment.toLowerCase().includes(searchQuery.toLowerCase()))
+        !q ||
+        ip.includes(q) ||
+        mac.includes(q) ||
+        host.includes(q) ||
+        comment.includes(q)
       );
     });
   }, [dhcpLeases, searchQuery]);
