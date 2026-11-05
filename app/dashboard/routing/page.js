@@ -473,39 +473,40 @@ export default function RoutingPage() {
             ))}
           </div>
 
-          {/* Ping Console Output */}
-          <div className="mt-6 bg-slate-950 rounded-2xl p-5 border border-slate-800 text-slate-200 font-mono text-xs shadow-inner">
-            <div className="flex items-center justify-between pb-3 border-b border-slate-800 text-slate-400 text-[11px]">
-              <span>RouterOS terminal simulator</span>
+          {/* Ping Console Output (Light Executive Design) */}
+          <div className="mt-6 bg-slate-50/90 rounded-2xl p-5 border border-slate-200/80 text-slate-800 font-mono text-xs shadow-xs">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 text-slate-500 text-[11px]">
+              <span className="font-semibold text-slate-700">RouterOS diagnostic output</span>
               <span>ICMP 64 bytes</span>
             </div>
 
-            <div className="mt-4 space-y-1.5 text-slate-300">
+            <div className="mt-4 space-y-1.5 text-slate-700">
               {pingRunning ? (
-                <div className="flex items-center gap-2 text-emerald-400 animate-pulse">
+                <div className="flex items-center gap-2 text-emerald-700 font-medium">
+                  <div className="w-3 h-3 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
                   <span>Sending 4 ICMP echo requests to {pingTarget}...</span>
                 </div>
               ) : pingResults ? (
                 <>
-                  <p className="text-slate-400">Ping {pingResults.target}: 56 data bytes</p>
+                  <p className="text-slate-500">Ping {pingResults.target}: 56 data bytes</p>
                   {pingResults.times.map((ms, idx) => (
-                    <p key={idx} className="text-emerald-400">
+                    <p key={idx} className="text-emerald-700 font-medium">
                       64 bytes from {pingResults.target}: icmp_seq={idx + 1} ttl=58 time={ms}ms
                     </p>
                   ))}
-                  <div className="mt-3 pt-3 border-t border-slate-800 text-slate-400">
+                  <div className="mt-3 pt-3 border-t border-slate-200 text-slate-600">
                     <p>
                       Ping statistics for {pingResults.target}:
                       <br />
                       {pingResults.transmitted} packets transmitted, {pingResults.received} received,{" "}
-                      <span className="text-emerald-400">{pingResults.loss} packet loss</span>
+                      <span className="text-emerald-700 font-semibold">{pingResults.loss} packet loss</span>
                       <br />
                       Round-trip min/avg/max = {pingResults.min}/{pingResults.avg}/{pingResults.max}
                     </p>
                   </div>
                 </>
               ) : (
-                <p className="text-slate-500">Click &apos;Start ping&apos; to measure ICMP response times.</p>
+                <p className="text-slate-400">Click &apos;Start ping&apos; to measure ICMP response times.</p>
               )}
             </div>
           </div>

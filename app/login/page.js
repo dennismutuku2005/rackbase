@@ -49,7 +49,7 @@ export default function LoginPage() {
 
   return (
     <div className="min-h-screen bg-[#F4F6F8] flex flex-col justify-center items-center p-4">
-      <div className="w-full max-w-sm bg-white rounded-xl border border-[#E2E8F0] shadow-xs overflow-hidden">
+      <div className="w-full max-w-sm bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] overflow-hidden">
         {/* Header */}
         <div className="p-6 pb-4 border-b border-slate-100 flex flex-col items-center text-center">
           <BrandLogo />

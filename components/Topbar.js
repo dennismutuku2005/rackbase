@@ -98,7 +98,7 @@ export default function Topbar({ onToggleMobile = () => {} }) {
   return (
     <>
       <header
-        className={`fixed top-0 right-0 z-20 h-14 bg-white border-b border-[#E2E8F0] flex items-center justify-between px-4 sm:px-6 transition-all duration-200 left-0 ${
+        className={`fixed top-0 right-0 z-20 h-14 bg-white border-b border-slate-100 flex items-center justify-between px-4 sm:px-6 transition-all duration-200 left-0 ${
           sidebarCollapsed ? "md:left-16" : "md:left-56"
         }`}
       >

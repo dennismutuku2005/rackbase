@@ -37,7 +37,7 @@ function IncidentDetailContent() {
   // Missing or invalid ID handling
   if (!incidentId || !incident) {
     return (
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-8 text-center">
         <h3 className="text-sm font-bold text-slate-800">
           {!incidentId ? "No incident ID specified" : "Incident not found"}
         </h3>
@@ -112,7 +112,7 @@ function IncidentDetailContent() {
         {/* Left Column (7 Cols) */}
         <div className="lg:col-span-7 space-y-4">
           {/* Affected Hardware Card */}
-          <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+          <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
             <h3 className="text-xs font-bold text-slate-800 mb-3 flex items-center gap-1.5">
               <ShieldAlert className="w-3.5 h-3.5 text-rose-600" />
               Affected infrastructure
@@ -178,7 +178,7 @@ function IncidentDetailContent() {
           </div>
 
           {/* Fault Overview */}
-          <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4 space-y-3">
+          <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5 space-y-3">
             <h3 className="text-xs font-bold text-slate-800 pb-2 border-b border-slate-100">
               Fault overview and symptoms
             </h3>
@@ -241,7 +241,7 @@ function IncidentDetailContent() {
 
         {/* Right Column: Timeline (5 Cols) */}
         <div className="lg:col-span-5 space-y-4">
-          <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+          <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
             <h3 className="text-xs font-bold text-slate-800 pb-2.5 border-b border-slate-100 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-slate-500" />
               Incident timeline ({incident.timeline?.length || 0})
@@ -337,8 +337,8 @@ export default function IncidentDetailPage() {
   return (
     <Suspense
       fallback={
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center text-xs text-slate-400">
-          Loading incident details...
+        <div className="w-full min-h-[40vh] flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

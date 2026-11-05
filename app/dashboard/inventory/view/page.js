@@ -76,7 +76,7 @@ function InventoryDetailContent() {
   // Missing or invalid ID handling
   if (!equipmentId || !item) {
     return (
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-8 text-center">
         <h3 className="text-sm font-bold text-slate-800">
           {!equipmentId ? "No equipment ID specified" : "Equipment item not found"}
         </h3>
@@ -484,8 +484,8 @@ export default function InventoryDetailPage() {
   return (
     <Suspense
       fallback={
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center text-xs text-slate-400">
-          Loading equipment details...
+        <div className="w-full min-h-[40vh] flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

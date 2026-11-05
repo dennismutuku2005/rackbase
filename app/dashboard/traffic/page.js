@@ -135,7 +135,7 @@ export default function TrafficPage() {
                 : "bg-slate-100 text-slate-600 border-slate-200"
             }`}
           >
-            <span className={`w-2 h-2 rounded-full ${isLive ? "bg-emerald-500 animate-pulse" : "bg-slate-400"}`}></span>
+            <span className={`w-2 h-2 rounded-full ${isLive ? "bg-emerald-500" : "bg-slate-400"}`}></span>
             {isLive ? "Live stream active" : "Paused"}
           </button>
         </div>
@@ -215,7 +215,7 @@ export default function TrafficPage() {
             <div className="flex items-center gap-3">
               <h2 className="text-base font-semibold text-slate-900">Total gateway throughput</h2>
               <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-100">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Live
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Live
               </span>
             </div>
             <p className="text-xs text-slate-500 mt-0.5">
@@ -320,13 +320,13 @@ export default function TrafficPage() {
             <circle cx={peakX} cy={peakY} r="4" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
           </svg>
 
-          {/* Peak Tooltip Pill element */}
+          {/* Peak Tooltip Pill element (Executive Designer Reference Style) */}
           <div
             className="absolute -top-3 transform -translate-x-1/2 pointer-events-none transition-all duration-300"
             style={{ left: `${(peakIdx / (trafficSeries.length - 1)) * 100}%` }}
           >
-            <div className="bg-slate-900 text-white text-[11px] font-mono px-2.5 py-1 rounded-full shadow-lg flex items-center gap-1.5 whitespace-nowrap">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-mono px-2.5 py-1 rounded-full shadow-sm flex items-center gap-1.5 whitespace-nowrap">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
               <span>Peak: {trafficSeries[peakIdx]?.rx} Mbps</span>
             </div>
           </div>

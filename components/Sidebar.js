@@ -163,12 +163,12 @@ export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }
       )}
 
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-40 flex flex-col bg-white border-r border-[#E2E8F0] transition-all duration-200 select-none ${
+        className={`fixed top-0 bottom-0 left-0 z-40 flex flex-col bg-white border-r border-slate-100 transition-all duration-200 select-none ${
           mobileOpen ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0"
         } ${sidebarCollapsed ? "md:w-16" : "md:w-56"}`}
       >
         {/* Top: Logo Mark Centered */}
-        <div className="relative flex items-center justify-center h-14 px-3 border-b border-[#E2E8F0]">
+        <div className="relative flex items-center justify-center h-14 px-3 border-b border-slate-100">
           <div className="flex items-center justify-center">
             <BrandLogo />
           </div>
@@ -187,7 +187,7 @@ export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
             className={`hidden md:flex p-1 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-md transition-colors cursor-pointer ${
               sidebarCollapsed
-                ? "absolute -right-3 top-1/2 -translate-y-1/2 bg-white border border-[#E2E8F0] shadow-xs rounded-full p-0.5 z-50 text-slate-500 hover:text-emerald-600 hover:border-emerald-300"
+                ? "absolute -right-3 top-1/2 -translate-y-1/2 bg-white border border-slate-200 shadow-xs rounded-full p-0.5 z-50 text-slate-500 hover:text-emerald-600 hover:border-emerald-300"
                 : "absolute right-2.5 top-1/2 -translate-y-1/2"
             }`}
             title={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
@@ -258,7 +258,7 @@ export default function Sidebar({ mobileOpen = false, onMobileClose = () => {} }
         </nav>
 
         {/* Bottom Section: User Identity & Visible Logout Button */}
-        <div className="p-2.5 border-t border-[#E2E8F0] bg-white space-y-2">
+        <div className="p-2.5 border-t border-slate-100 bg-white space-y-2">
           {!sidebarCollapsed ? (
             <>
               {/* User Identity Display */}

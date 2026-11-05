@@ -33,7 +33,7 @@ function AccessPointDetailContent() {
 
   if (!apId || !ap) {
     return (
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-8 text-center">
         <h3 className="text-sm font-bold text-slate-800">
           {!apId ? "No access point ID specified" : "Access point not found"}
         </h3>
@@ -149,7 +149,7 @@ function AccessPointDetailContent() {
       </div>
 
       {/* AP Specifications */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+      <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
         <div className="flex items-center justify-between pb-3 border-b border-slate-100">
           <div className="flex items-center gap-2.5">
             <div className="w-8 h-8 rounded-lg bg-purple-50 text-purple-700 flex items-center justify-center">
@@ -230,7 +230,7 @@ function AccessPointDetailContent() {
       {/* Related Incidents & Maintenance Records */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Related Incidents */}
-        <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
             <h3 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
               <AlertOctagon className="w-3.5 h-3.5 text-rose-600" />
@@ -273,7 +273,7 @@ function AccessPointDetailContent() {
         </div>
 
         {/* Maintenance History */}
-        <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
           <div className="flex items-center justify-between pb-2.5 border-b border-slate-100">
             <h3 className="text-xs font-bold text-slate-800 flex items-center gap-1.5">
               <Wrench className="w-3.5 h-3.5 text-slate-600" />
@@ -333,8 +333,8 @@ export default function AccessPointDetailPage() {
   return (
     <Suspense
       fallback={
-        <div className="bg-white rounded-xl border border-[#E2E8F0] p-8 text-center text-xs text-slate-400">
-          Loading access point details...
+        <div className="w-full min-h-[40vh] flex items-center justify-center">
+          <div className="w-6 h-6 border-2 border-emerald-600 border-t-transparent rounded-full animate-spin" />
         </div>
       }
     >

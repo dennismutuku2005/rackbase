@@ -156,7 +156,7 @@ export default function InterfacesPage() {
           </div>
           <div className="flex items-center gap-4 text-xs">
             <span className="flex items-center gap-1.5 text-slate-600">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span> Link active
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Link active
             </span>
             <span className="flex items-center gap-1.5 text-slate-600">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-300"></span> Disconnected
@@ -167,18 +167,18 @@ export default function InterfacesPage() {
           </div>
         </div>
 
-        {/* Chassis Front Panel Graphic */}
-        <div className="mt-6 p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-950 border border-slate-800 shadow-inner">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
+        {/* Chassis Front Panel Graphic (Light Executive Design) */}
+        <div className="mt-6 p-6 rounded-2xl bg-slate-50/80 border border-slate-200/80">
+          <div className="flex items-center justify-between pb-4 border-b border-slate-200/80 mb-6">
             <div className="flex items-center gap-3">
-              <div className="w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]"></div>
-              <span className="font-mono text-xs font-semibold text-slate-200 tracking-wider">
+              <div className="w-2.5 h-2.5 rounded-full bg-emerald-500"></div>
+              <span className="font-mono text-xs font-semibold text-slate-800 tracking-wider">
                 {currentRouter?.name || "RouterOS CCR2004"}
               </span>
             </div>
             <div className="flex items-center gap-3">
-              <span className="text-[11px] font-mono text-slate-400">Voltage: 24.2V</span>
-              <span className="text-[11px] font-mono text-slate-400">Temp: 38°C</span>
+              <span className="text-[11px] font-mono text-slate-500">Voltage: 24.2V</span>
+              <span className="text-[11px] font-mono text-slate-500">Temp: 38°C</span>
             </div>
           </div>
 
@@ -197,19 +197,19 @@ export default function InterfacesPage() {
                   type="button"
                   className={`relative flex flex-col items-center p-3 rounded-xl transition-all text-left ${
                     isSelected
-                      ? "bg-slate-800 ring-2 ring-emerald-400 shadow-lg scale-105"
-                      : "bg-slate-900/90 hover:bg-slate-800/70 border border-slate-800"
+                      ? "bg-white ring-2 ring-emerald-500 border border-emerald-500 shadow-md scale-105"
+                      : "bg-white hover:bg-slate-50/90 border border-slate-200 shadow-xs"
                   }`}
                 >
                   {/* LED Indicators */}
                   <div className="w-full flex items-center justify-between mb-2">
                     <span
                       className={`w-2 h-2 rounded-full ${
-                        isUp ? "bg-emerald-400 shadow-[0_0_6px_rgba(52,211,153,0.9)] animate-pulse" : "bg-slate-600"
+                        isUp ? "bg-emerald-500" : "bg-slate-300"
                       }`}
                     ></span>
                     {hasPoe && (
-                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 shadow-[0_0_4px_rgba(251,191,36,0.9)]"></span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                     )}
                   </div>
 
@@ -217,18 +217,18 @@ export default function InterfacesPage() {
                   <div
                     className={`w-10 h-7 rounded border flex items-center justify-center font-mono text-[9px] font-bold ${
                       isSfp
-                        ? "border-amber-400/40 bg-amber-950/20 text-amber-300"
-                        : "border-slate-700 bg-slate-950 text-slate-400"
+                        ? "border-amber-300 bg-amber-50 text-amber-700"
+                        : "border-slate-300 bg-slate-100 text-slate-600"
                     }`}
                   >
                     {isSfp ? "SFP+" : "RJ45"}
                   </div>
 
                   {/* Port Name & Link */}
-                  <span className="mt-2 text-[11px] font-semibold text-slate-200 truncate w-full text-center">
+                  <span className="mt-2 text-[11px] font-semibold text-slate-800 truncate w-full text-center">
                     {port.name}
                   </span>
-                  <span className="text-[10px] text-slate-400 font-mono mt-0.5">
+                  <span className="text-[10px] text-slate-500 font-mono mt-0.5">
                     {isUp ? port.linkSpeed : "Down"}
                   </span>
                 </button>

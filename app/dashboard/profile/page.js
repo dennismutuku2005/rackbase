@@ -58,7 +58,7 @@ export default function ProfilePage() {
       <div className="grid grid-cols-1 md:grid-cols-12 gap-5">
         {/* Left Column: Profile Card & Session Info (4 Cols) */}
         <div className="md:col-span-4 space-y-4">
-          <div className="bg-white rounded-xl border border-[#E2E8F0] p-5 text-center shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-100/90 p-6 text-center shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)]">
             <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center font-bold text-xl mx-auto shadow-xs">
               {user.avatar || "DM"}
             </div>
@@ -86,7 +86,7 @@ export default function ProfilePage() {
             </div>
           </div>
 
-          <div className="bg-white rounded-xl border border-[#E2E8F0] p-4 text-xs space-y-2 shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-100/90 p-5 text-xs space-y-2 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)]">
             <div className="font-semibold text-slate-700">Security & access</div>
             <div className="text-[11px] text-slate-500">
               Session token verified via localStorage demo auth. Full administrative control over MikroTik equipment and incident escalation.
@@ -96,7 +96,7 @@ export default function ProfilePage() {
 
         {/* Right Column: Edit Profile Form (8 Cols) */}
         <div className="md:col-span-8">
-          <div className="bg-white rounded-xl border border-[#E2E8F0] p-5 shadow-xs">
+          <div className="bg-white rounded-2xl border border-slate-100/90 p-6 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)]">
             <h3 className="text-xs font-bold text-slate-800 pb-3 border-b border-slate-100 mb-4">
               Edit personal information
             </h3>

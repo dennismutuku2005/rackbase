@@ -89,7 +89,7 @@ export default function SettingsPage() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Application Preferences */}
-        <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
           <h3 className="text-xs font-bold text-slate-800 pb-2.5 border-b border-slate-100 flex items-center gap-1.5">
             <Sliders className="w-3.5 h-3.5 text-slate-500" />
             Monitoring preferences
@@ -171,7 +171,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Password Management */}
-        <div className="bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
           <h3 className="text-xs font-bold text-slate-800 pb-2.5 border-b border-slate-100 flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-slate-500" />
             Security & password
@@ -227,7 +227,7 @@ export default function SettingsPage() {
         </div>
 
         {/* Database & Demo Management (Span 2) */}
-        <div className="md:col-span-2 bg-white rounded-xl border border-[#E2E8F0] shadow-xs p-4">
+        <div className="md:col-span-2 bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
           <h3 className="text-xs font-bold text-slate-800 pb-2 border-b border-slate-100">
             Data export & demo recovery
           </h3>

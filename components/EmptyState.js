@@ -11,7 +11,7 @@ export default function EmptyState({
   icon: Icon = Inbox,
 }) {
   return (
-    <div className="flex flex-col items-center justify-center p-8 text-center bg-white rounded-xl border border-[#E2E8F0]">
+    <div className="flex flex-col items-center justify-center p-8 text-center bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)]">
       <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-400 mb-2.5">
         <Icon className="w-5 h-5" />
       </div>

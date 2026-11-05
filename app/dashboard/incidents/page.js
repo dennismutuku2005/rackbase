@@ -134,7 +134,7 @@ export default function IncidentsPage() {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="bg-white rounded-xl border border-[#E2E8F0] p-3 shadow-xs grid grid-cols-1 sm:grid-cols-12 gap-2.5">
+      <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] grid grid-cols-1 sm:grid-cols-12 gap-2.5">
         <div className="sm:col-span-5 relative">
           <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
