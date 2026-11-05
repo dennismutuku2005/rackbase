@@ -74,7 +74,9 @@ function RouterDetailContent() {
             <span className="text-slate-700 font-medium">{router.name}</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-base font-bold text-slate-900">{router.name}</h2>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+              {router.name}
+            </h1>
             <StatusBadge status={router.status} size="sm" />
           </div>
         </div>

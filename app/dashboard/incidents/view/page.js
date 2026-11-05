@@ -89,7 +89,9 @@ function IncidentDetailContent() {
             <span className="text-slate-700 font-mono">{incident.referenceNumber}</span>
           </div>
           <div className="flex items-center gap-2.5 flex-wrap">
-            <h2 className="text-base font-bold text-slate-900">{incident.title}</h2>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+              {incident.title}
+            </h1>
             <StatusBadge status={incident.severity} size="sm" />
             <StatusBadge status={incident.status} size="sm" />
           </div>

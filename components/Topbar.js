@@ -116,9 +116,9 @@ export default function Topbar({ onToggleMobile = () => {} }) {
             <div className="text-[11px] font-normal text-slate-400">
               {breadcrumbs.section}
             </div>
-            <h1 className="text-sm font-bold text-slate-800 leading-tight">
+            <span className="text-sm font-bold text-slate-800 leading-tight block">
               {breadcrumbs.title}
-            </h1>
+            </span>
           </div>
         </div>
 

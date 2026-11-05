@@ -73,13 +73,10 @@ export default function DashboardHomePage() {
 
   return (
     <div className="space-y-5">
-      {/* Top Banner / Welcome Row */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <p className="text-xs font-medium text-emerald-600">
-            Network operations center
-          </p>
-          <h1 className="text-lg sm:text-xl font-bold text-slate-900 mt-0.5">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
             Operational dashboard
           </h1>
           <p className="text-xs text-slate-500 mt-0.5">

@@ -98,12 +98,14 @@ export default function TrafficPage() {
   const peakY = height - (trafficSeries[peakIdx].rx / maxVal) * (height - 20);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Page Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">Live traffic & bandwidth monitor</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Live traffic & bandwidth monitor
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Real-time RouterOS throughput stream, processor telemetry, and active interface bandwidth
           </p>
         </div>

@@ -123,7 +123,9 @@ function InventoryDetailContent() {
             <span className="text-slate-700 font-medium">{item.name}</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-base font-bold text-slate-900">{item.name}</h2>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+              {item.name}
+            </h1>
             <StatusBadge status={item.status} size="sm" />
             <span className="text-[11px] font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded">
               {item.itemType}

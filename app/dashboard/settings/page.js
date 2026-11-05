@@ -77,11 +77,13 @@ export default function SettingsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Application settings</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Application settings
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Configure default network subnets, ping monitoring intervals, and security credentials
           </p>
         </div>

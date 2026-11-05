@@ -36,12 +36,14 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="space-y-5">
-      {/* Header Bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2 border-b border-slate-100">
+    <div className="space-y-4">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-lg font-bold text-slate-800">Account profile</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Account profile
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Manage your personal operator credentials, contact information, and session
           </p>
         </div>

@@ -41,11 +41,13 @@ export default function ActivityLogsPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Activity logs</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Activity logs
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Audit trail of equipment registrations, status updates, and incident resolutions
           </p>
         </div>

@@ -72,7 +72,9 @@ function AccessPointDetailContent() {
             <span className="text-slate-700 font-medium">{ap.name}</span>
           </div>
           <div className="flex items-center gap-2.5">
-            <h2 className="text-base font-bold text-slate-900">{ap.name}</h2>
+            <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+              {ap.name}
+            </h1>
             <StatusBadge status={ap.status} size="sm" />
           </div>
         </div>

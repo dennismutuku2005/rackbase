@@ -69,11 +69,13 @@ export default function RoutersPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Main MikroTik routers</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Main MikroTik routers
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Core routerboards managing client subnets, routing protocols, and access points
           </p>
         </div>

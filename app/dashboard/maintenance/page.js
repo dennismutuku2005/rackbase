@@ -61,11 +61,13 @@ export default function MaintenancePage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Maintenance management</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Maintenance management
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Schedule preventive equipment servicing, track firmware upgrades, and maintain service logs
           </p>
         </div>

@@ -130,11 +130,13 @@ export default function InventoryPage() {
 
   return (
     <div className="space-y-4">
-      {/* Header */}
+      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
         <div>
-          <h2 className="text-base font-bold text-slate-900">Equipment inventory</h2>
-          <p className="text-xs text-slate-500">
+          <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
+            Equipment inventory
+          </h1>
+          <p className="text-xs text-slate-500 mt-0.5">
             Unified catalog of all registered MikroTik routers, access points and supporting hardware
           </p>
         </div>
