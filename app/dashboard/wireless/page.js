@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { useRackbase } from "@/context/RackbaseContext";
+import MetricCard from "@/components/MetricCard";
 import {
   Wifi,
   Radio,
@@ -85,63 +86,60 @@ export default function WirelessPage() {
         </div>
       </div>
 
-      {/* Summary Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Connected stations</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <Wifi className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{totalClients}</span>
-            <span className="text-xs text-emerald-600 font-medium">Active CPEs</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Registered on {accessPoints.length} AP Sectors</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Excellent signal (&gt; -65 dBm)</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <CheckCircle2 className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-emerald-600">{excellentClients}</span>
-            <span className="text-xs text-slate-500">stations</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">High MCS modulation indices</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Good signal (-65 to -75)</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <Signal className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{goodClients}</span>
-            <span className="text-xs text-amber-600 font-medium">stations</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">Stable throughput links</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Sub-optimal (&lt; -75 dBm)</span>
-            <div className="w-8 h-8 rounded-xl bg-red-50 flex items-center justify-center text-red-600">
-              <AlertTriangle className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{fairClients}</span>
-            <span className="text-xs text-red-600 font-medium">attention required</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">Check antenna alignment</p>
-        </div>
+      {/* Summary Stat Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Connected stations"
+          value={`${totalClients}`}
+          subtext={`across ${accessPoints.length} AP sectors`}
+          trend="+14.2%"
+          trendType="up"
+          color="emerald"
+          data={[18, 22, 20, 26, 24, 28, totalClients]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["35", "25", "15", "5"]}
+          activePoint={6}
+          activeLabel={`${totalClients} CPEs`}
+        />
+        <MetricCard
+          title="Optimal link (> -65 dBm)"
+          value={`${excellentClients}`}
+          subtext="high MCS modulation"
+          trend="+8.5%"
+          trendType="up"
+          color="sky"
+          data={[10, 12, 11, 14, 13, 16, excellentClients]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["20", "15", "10", "5"]}
+          activePoint={6}
+          activeLabel={`${excellentClients} Optimal`}
+        />
+        <MetricCard
+          title="Good signal (-65 to -75)"
+          value={`${goodClients}`}
+          subtext="stable throughput links"
+          trend="+2.1%"
+          trendType="up"
+          color="amber"
+          data={[6, 8, 7, 9, 8, 9, goodClients]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["12", "9", "6", "3"]}
+          activePoint={6}
+          activeLabel={`${goodClients} Stable`}
+        />
+        <MetricCard
+          title="Sub-optimal (< -75 dBm)"
+          value={`${fairClients}`}
+          subtext={fairClients === 0 ? "clean RF coverage" : "alignment recommended"}
+          trend={fairClients === 0 ? "0%" : "+1.0%"}
+          trendType={fairClients === 0 ? "up" : "down"}
+          color={fairClients === 0 ? "emerald" : "rose"}
+          data={[4, 3, 2, 3, 2, 1, fairClients]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["5", "3", "2", "0"]}
+          activePoint={6}
+          activeLabel={`${fairClients} Margin`}
+        />
       </div>
 
       {/* Signal Quality Distribution Bar */}

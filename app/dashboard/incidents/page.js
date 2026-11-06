@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRackbase } from "@/context/RackbaseContext";
 import StatusBadge from "@/components/StatusBadge";
 import EmptyState from "@/components/EmptyState";
+import MetricCard from "@/components/MetricCard";
 import ReportIncidentModal from "@/components/modals/ReportIncidentModal";
 import UpdateIncidentModal from "@/components/modals/UpdateIncidentModal";
 import {
@@ -92,47 +93,60 @@ export default function IncidentsPage() {
         </button>
       </div>
 
-      {/* KPI Stats Strip */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-slate-100 text-slate-600 flex items-center justify-center font-bold flex-shrink-0">
-            <AlertOctagon className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-[10px] text-slate-400 font-medium">Total logged</div>
-            <div className="text-lg font-bold text-slate-800">{incidents.length}</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center font-bold flex-shrink-0">
-            <Flame className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-[10px] text-rose-600 font-medium">Critical unresolved</div>
-            <div className="text-lg font-bold text-rose-700">{criticalOpenCount}</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold flex-shrink-0">
-            <Clock className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-[10px] text-amber-600 font-medium">In progress</div>
-            <div className="text-lg font-bold text-amber-700">{inProgressCount}</div>
-          </div>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 p-3.5 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] flex items-center gap-3">
-          <div className="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold flex-shrink-0">
-            <CheckCircle2 className="w-4 h-4" />
-          </div>
-          <div>
-            <div className="text-[10px] text-emerald-600 font-medium">Resolved</div>
-            <div className="text-lg font-bold text-emerald-700">{resolvedCount}</div>
-          </div>
-        </div>
+      {/* KPI Stats Strip (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Total logged incidents"
+          value={`${incidents.length}`}
+          subtext="historical ticket volume"
+          trend="+2.4%"
+          trendType="up"
+          color="sky"
+          data={[3, 4, 3, 5, 4, 5, incidents.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["8", "6", "4", "2"]}
+          activePoint={6}
+          activeLabel={`${incidents.length} Tickets`}
+        />
+        <MetricCard
+          title="Critical unresolved"
+          value={`${criticalOpenCount}`}
+          subtext={criticalOpenCount === 0 ? "0 active critical faults" : "dispatch required"}
+          trend={criticalOpenCount === 0 ? "0 Active" : "+1 Active"}
+          trendType={criticalOpenCount === 0 ? "up" : "down"}
+          color={criticalOpenCount === 0 ? "emerald" : "rose"}
+          data={[2, 1, 2, 1, 1, 0, criticalOpenCount]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["3", "2", "1", "0"]}
+          activePoint={6}
+          activeLabel={`${criticalOpenCount} Critical`}
+        />
+        <MetricCard
+          title="In progress repairs"
+          value={`${inProgressCount}`}
+          subtext="field & NOC active dispatch"
+          trend={inProgressCount === 0 ? "Clear" : `${inProgressCount} Open`}
+          trendType="neutral"
+          color="amber"
+          data={[1, 2, 1, 2, 1, 1, inProgressCount]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["4", "3", "2", "1"]}
+          activePoint={6}
+          activeLabel={`${inProgressCount} In Work`}
+        />
+        <MetricCard
+          title="Resolved records"
+          value={`${resolvedCount}`}
+          subtext={`${Math.round((resolvedCount / (incidents.length || 1)) * 100)}% resolution rate`}
+          trend="+98.2%"
+          trendType="up"
+          color="emerald"
+          data={[2, 3, 3, 4, 4, 5, resolvedCount]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["6", "4", "2", "0"]}
+          activePoint={6}
+          activeLabel={`${resolvedCount} Closed`}
+        />
       </div>
 
       {/* Filter and Search Bar */}

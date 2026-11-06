@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRackbase } from "@/context/RackbaseContext";
+import MetricCard from "@/components/MetricCard";
 import {
   Activity,
   ArrowDownCircle,
@@ -143,71 +144,60 @@ export default function TrafficPage() {
         </div>
       </div>
 
-      {/* Telemetry Headline Metric Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Aggregate Download */}
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Aggregate download (Rx)</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <ArrowDownCircle className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-emerald-600">{currentRx}</span>
-            <span className="text-xs font-medium text-slate-500">Mbps</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Peak: 890.2 Mbps today</p>
-        </div>
-
-        {/* Aggregate Upload */}
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Aggregate upload (Tx)</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <ArrowUpCircle className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-amber-600">{currentTx}</span>
-            <span className="text-xs font-medium text-slate-500">Mbps</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Peak: 310.5 Mbps today</p>
-        </div>
-
-        {/* CPU Processor Load */}
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">CPU core load</span>
-            <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-              <Cpu className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{cpuLoad}%</span>
-            <span className="text-xs text-emerald-600 font-medium">Optimal</span>
-          </div>
-          <div className="w-full bg-slate-100 h-1.5 rounded-full mt-2.5 overflow-hidden">
-            <div
-              className="bg-blue-600 h-full rounded-full transition-all duration-500"
-              style={{ width: `${cpuLoad}%` }}
-            ></div>
-          </div>
-        </div>
-
-        {/* System Uptime */}
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">RouterOS uptime</span>
-            <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
-              <Clock className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-xl font-bold text-slate-900">142d 18h</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Kernel {currentRouter?.routerOsVersion || "v7.14.2"}</p>
-        </div>
+      {/* Telemetry Headline Metric Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Aggregate download (Rx)"
+          value={`${currentRx} Mbps`}
+          subtext="peak 890.2 Mbps today"
+          trend="+12.4%"
+          trendType="up"
+          color="emerald"
+          data={trafficSeries.slice(-7).map((p) => p.rx)}
+          labels={["-6m", "-5m", "-4m", "-3m", "-2m", "-1m", "Now"]}
+          yTicks={["800", "600", "400", "200"]}
+          activePoint={6}
+          activeLabel={`${currentRx} Mbps`}
+        />
+        <MetricCard
+          title="Aggregate upload (Tx)"
+          value={`${currentTx} Mbps`}
+          subtext="peak 310.5 Mbps today"
+          trend="+6.1%"
+          trendType="up"
+          color="amber"
+          data={trafficSeries.slice(-7).map((p) => p.tx)}
+          labels={["-6m", "-5m", "-4m", "-3m", "-2m", "-1m", "Now"]}
+          yTicks={["300", "225", "150", "75"]}
+          activePoint={6}
+          activeLabel={`${currentTx} Mbps`}
+        />
+        <MetricCard
+          title="CPU core load"
+          value={`${cpuLoad}%`}
+          subtext="optimal multicore load"
+          trend={Number(cpuLoad) > 50 ? "+4.2%" : "-1.8%"}
+          trendType={Number(cpuLoad) > 50 ? "up" : "down"}
+          color={Number(cpuLoad) > 70 ? "rose" : "sky"}
+          data={[18, 24, 21, 28, 22, 26, Number(cpuLoad) || 24]}
+          labels={["-6m", "-5m", "-4m", "-3m", "-2m", "-1m", "Now"]}
+          yTicks={["80%", "60%", "40%", "20%"]}
+          activePoint={6}
+          activeLabel={`${cpuLoad}% Load`}
+        />
+        <MetricCard
+          title="RouterOS uptime"
+          value="99.98%"
+          subtext={`142d 18h • ${currentRouter?.routerOsVersion || "v7.14.2"}`}
+          trend="+0.02%"
+          trendType="up"
+          color="purple"
+          data={[99.85, 99.88, 99.91, 99.93, 99.95, 99.97, 99.98]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["100%", "99.9%", "99.8%", "99.7%"]}
+          activePoint={6}
+          activeLabel="99.98% SLA"
+        />
       </div>
 
       {/* Main Bandwidth Graph Card (Executive Designer Reference Style) */}

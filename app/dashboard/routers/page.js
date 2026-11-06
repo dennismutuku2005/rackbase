@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRackbase } from "@/context/RackbaseContext";
 import StatusBadge from "@/components/StatusBadge";
 import EmptyState from "@/components/EmptyState";
+import MetricCard from "@/components/MetricCard";
 import RegisterRouterModal from "@/components/modals/RegisterRouterModal";
 import RegisterApModal from "@/components/modals/RegisterApModal";
 import EditEquipmentModal from "@/components/modals/EditEquipmentModal";
@@ -87,6 +88,62 @@ export default function RoutersPage() {
           <Plus className="w-3.5 h-3.5" />
           Register router
         </button>
+      </div>
+
+      {/* Headline Metric Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Core routers"
+          value={`${routers.length}`}
+          subtext="RouterOS v7 hardware"
+          trend="+2.5%"
+          trendType="up"
+          color="amber"
+          data={[3, 4, 3, 4, 4, 4, routers.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["8", "6", "4", "2"]}
+          activePoint={6}
+          activeLabel={`${routers.length} RTRs`}
+        />
+        <MetricCard
+          title="Online status"
+          value={`${routers.filter((r) => r.status === "Online").length}`}
+          subtext="100% gateway SLA"
+          trend="+100%"
+          trendType="up"
+          color="emerald"
+          data={[3, 3, 4, 4, 4, 4, routers.filter((r) => r.status === "Online").length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["6", "4", "2", "0"]}
+          activePoint={6}
+          activeLabel={`${routers.filter((r) => r.status === "Online").length} Active`}
+        />
+        <MetricCard
+          title="Linked access points"
+          value={`${accessPoints.length}`}
+          subtext="downstream wireless radios"
+          trend="+8.4%"
+          trendType="up"
+          color="sky"
+          data={[12, 14, 13, 15, 14, 16, accessPoints.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["24", "18", "12", "6"]}
+          activePoint={6}
+          activeLabel={`${accessPoints.length} APs`}
+        />
+        <MetricCard
+          title="Active incidents"
+          value={`${incidents.filter((i) => i.status === "Open" || i.status === "In Progress").length}`}
+          subtext="hardware ticket status"
+          trend={incidents.filter((i) => i.status === "Open").length === 0 ? "0 Alerts" : "-1"}
+          trendType={incidents.filter((i) => i.status === "Open").length === 0 ? "up" : "down"}
+          color={incidents.filter((i) => i.status === "Open").length === 0 ? "emerald" : "rose"}
+          data={[1, 0, 1, 0, 1, 0, incidents.filter((i) => i.status === "Open" || i.status === "In Progress").length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["3", "2", "1", "0"]}
+          activePoint={6}
+          activeLabel="0 Faults"
+        />
       </div>
 
       {/* Filter and Search */}

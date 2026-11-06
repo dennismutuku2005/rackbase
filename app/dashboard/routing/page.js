@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { useRackbase } from "@/context/RackbaseContext";
+import MetricCard from "@/components/MetricCard";
 import {
   Route,
   Network,
@@ -175,61 +176,60 @@ export default function RoutingPage() {
         </div>
       </div>
 
-      {/* Summary Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Active routes</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <Route className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{routingTable.length}</span>
-            <span className="text-xs text-emerald-600 font-medium">FIB active</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">1 Default WAN + Connected</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">DHCP leased IPs</span>
-            <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-              <Network className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{dhcpLeases.length}</span>
-            <span className="text-xs text-slate-500">bindings</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">Pool: 192.168.10.100-200</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Default gateway</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <Globe className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-lg font-bold text-slate-900 font-mono">197.232.88.1</span>
-          </div>
-          <p className="text-xs text-emerald-600 font-medium mt-1 font-mono">via sfp-plus1 (Fiber)</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Routing protocols</span>
-            <div className="w-8 h-8 rounded-xl bg-purple-50 flex items-center justify-center text-purple-600">
-              <Layers className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-xl font-bold text-slate-900">OSPFv3 & BGP</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1 font-mono">AS65001 • Peering Up</p>
-        </div>
+      {/* Summary Stat Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Active routing table"
+          value={`${routingTable.length}`}
+          subtext="FIB active routes"
+          trend="+3.2%"
+          trendType="up"
+          color="emerald"
+          data={[5, 5, 6, 6, 6, 6, routingTable.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["8", "6", "4", "2"]}
+          activePoint={6}
+          activeLabel={`${routingTable.length} Routes`}
+        />
+        <MetricCard
+          title="DHCP active leases"
+          value={`${dhcpLeases.length}`}
+          subtext="Pool: 192.168.10.100-200"
+          trend="+9.1%"
+          trendType="up"
+          color="sky"
+          data={[4, 5, 5, 6, 5, 6, dhcpLeases.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["10", "8", "6", "4"]}
+          activePoint={6}
+          activeLabel={`${dhcpLeases.length} Leased`}
+        />
+        <MetricCard
+          title="Default WAN gateway"
+          value="197.232.88.1"
+          subtext="via sfp-plus1 (10G Fiber)"
+          trend="Online"
+          trendType="up"
+          color="amber"
+          data={[1.2, 1.0, 0.9, 0.8, 1.1, 0.9, 0.8]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["2ms", "1.5ms", "1ms", "0.5ms"]}
+          activePoint={6}
+          activeLabel="0.8ms Ping"
+        />
+        <MetricCard
+          title="Dynamic protocols"
+          value="OSPF & BGP"
+          subtext="AS65001 • Peering Up"
+          trend="Synced"
+          trendType="up"
+          color="purple"
+          data={[4, 4, 4, 4, 4, 4, 4]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["6", "4", "2", "0"]}
+          activePoint={6}
+          activeLabel="4 Adjacencies"
+        />
       </div>
 
       {/* TAB 1: Routing Table */}

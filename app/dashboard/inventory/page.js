@@ -5,8 +5,7 @@ import Link from "next/link";
 import { useRackbase } from "@/context/RackbaseContext";
 import StatusBadge from "@/components/StatusBadge";
 import EmptyState from "@/components/EmptyState";
-import RegisterRouterModal from "@/components/modals/RegisterRouterModal";
-import RegisterApModal from "@/components/modals/RegisterApModal";
+import MetricCard from "@/components/MetricCard";
 import EditEquipmentModal from "@/components/modals/EditEquipmentModal";
 import DeleteConfirmModal from "@/components/modals/DeleteConfirmModal";
 import {
@@ -25,12 +24,9 @@ export default function InventoryPage() {
   const { routers, accessPoints, otherEquipment, globalSearch } = useRackbase();
 
   // Modals state
-  const [registerRouterOpen, setRegisterRouterOpen] = useState(false);
-  const [registerApOpen, setRegisterApOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [activeEquipment, setActiveEquipment] = useState(null);
-  const [addMenuOpen, setAddMenuOpen] = useState(false);
 
   // Filters
   const [searchQuery, setSearchQuery] = useState(globalSearch || "");
@@ -131,7 +127,7 @@ export default function InventoryPage() {
   return (
     <div className="space-y-4">
       {/* Page Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-1">
+      <div className="pb-1">
         <div>
           <h1 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">
             Equipment inventory
@@ -140,43 +136,62 @@ export default function InventoryPage() {
             Unified catalog of all registered MikroTik routers, access points and supporting hardware
           </p>
         </div>
+      </div>
 
-        {/* Dropdown Add button */}
-        <div className="relative w-full sm:w-auto">
-          <button
-            onClick={() => setAddMenuOpen(!addMenuOpen)}
-            className="inline-flex items-center justify-center gap-1.5 h-9 px-3.5 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-all shadow-xs cursor-pointer w-full sm:w-auto"
-          >
-            <Plus className="w-3.5 h-3.5" />
-            Register equipment
-            <ChevronDown className="w-3 h-3 ml-0.5" />
-          </button>
-
-          {addMenuOpen && (
-            <div className="absolute right-0 mt-1.5 w-48 bg-white rounded-xl shadow-lg border border-slate-200 py-1 z-40 animate-in fade-in slide-in-from-top-1 duration-150">
-              <button
-                onClick={() => {
-                  setAddMenuOpen(false);
-                  setRegisterRouterOpen(true);
-                }}
-                className="w-full px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2 text-left font-medium cursor-pointer"
-              >
-                <Router className="w-3.5 h-3.5 text-amber-600" />
-                Register main router
-              </button>
-              <button
-                onClick={() => {
-                  setAddMenuOpen(false);
-                  setRegisterApOpen(true);
-                }}
-                className="w-full px-3 py-2 text-xs text-slate-700 hover:bg-slate-50 flex items-center gap-2 text-left font-medium cursor-pointer"
-              >
-                <Radio className="w-3.5 h-3.5 text-purple-600" />
-                Register access point
-              </button>
-            </div>
-          )}
-        </div>
+      {/* Headline Metric Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Total equipment"
+          value={`${consolidatedList.length}`}
+          subtext="units in service catalog"
+          trend="+5.2%"
+          trendType="up"
+          color="emerald"
+          data={[30, 32, 31, 34, 33, 35, consolidatedList.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["40", "30", "20", "10"]}
+          activePoint={6}
+          activeLabel={`${consolidatedList.length} Units`}
+        />
+        <MetricCard
+          title="Core routers"
+          value={`${routers.length}`}
+          subtext="RouterOS boards"
+          trend="+2.5%"
+          trendType="up"
+          color="amber"
+          data={[3, 4, 3, 4, 4, 4, routers.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["8", "6", "4", "2"]}
+          activePoint={6}
+          activeLabel={`${routers.length} RTRs`}
+        />
+        <MetricCard
+          title="Access points"
+          value={`${accessPoints.length}`}
+          subtext="wireless radios"
+          trend="+8.4%"
+          trendType="up"
+          color="sky"
+          data={[12, 14, 13, 15, 14, 16, accessPoints.length]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["24", "18", "12", "6"]}
+          activePoint={6}
+          activeLabel={`${accessPoints.length} APs`}
+        />
+        <MetricCard
+          title="Operational rate"
+          value="96.4%"
+          subtext="active network uptime"
+          trend="+0.4%"
+          trendType="up"
+          color="purple"
+          data={[95.8, 96.0, 96.1, 96.2, 96.2, 96.3, 96.4]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["100%", "98%", "96%", "94%"]}
+          activePoint={6}
+          activeLabel="96.4% Health"
+        />
       </div>
 
       {/* Filter and Search Controls */}
@@ -289,8 +304,6 @@ export default function InventoryPage() {
           <EmptyState
             title="No equipment found"
             description="No items match your filter criteria."
-            actionLabel="Register equipment"
-            onAction={() => setRegisterRouterOpen(true)}
           />
         ) : (
           <div className="overflow-x-auto">
@@ -429,27 +442,7 @@ export default function InventoryPage() {
         )}
       </div>
 
-      {/* Sticky Bottom Action Bar for Mobile - Stacked full width */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 p-3 bg-white/95 backdrop-blur-xs border-t border-slate-200 z-30 flex flex-col gap-2">
-        <button
-          onClick={() => setRegisterRouterOpen(true)}
-          className="w-full h-10 px-4 text-xs font-semibold text-slate-700 bg-white border border-slate-200 hover:bg-slate-50 rounded-lg shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
-        >
-          <Router className="w-3.5 h-3.5 text-amber-600" />
-          Register main router
-        </button>
-        <button
-          onClick={() => setRegisterApOpen(true)}
-          className="w-full h-10 px-4 text-xs font-semibold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg shadow-xs flex items-center justify-center gap-1.5 cursor-pointer"
-        >
-          <Radio className="w-3.5 h-3.5" />
-          Register access point
-        </button>
-      </div>
-
       {/* Modals */}
-      <RegisterRouterModal isOpen={registerRouterOpen} onClose={() => setRegisterRouterOpen(false)} />
-      <RegisterApModal isOpen={registerApOpen} onClose={() => setRegisterApOpen(false)} />
       <EditEquipmentModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}

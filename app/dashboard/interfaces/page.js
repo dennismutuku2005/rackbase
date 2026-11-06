@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import { useRackbase } from "@/context/RackbaseContext";
+import MetricCard from "@/components/MetricCard";
 import {
   Server,
   Activity,
@@ -87,64 +88,60 @@ export default function InterfacesPage() {
         </div>
       </div>
 
-      {/* Summary Stat Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Total interfaces</span>
-            <div className="w-8 h-8 rounded-xl bg-slate-50 flex items-center justify-center text-slate-600">
-              <Server className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{totalPorts}</span>
-            <span className="text-xs text-slate-500">configured</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">8x RJ45 GbE + 2x SFP+ 10G</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Link status up</span>
-            <div className="w-8 h-8 rounded-xl bg-emerald-50 flex items-center justify-center text-emerald-600">
-              <CheckCircle2 className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-emerald-600">{upPorts}</span>
-            <span className="text-xs text-slate-500">/ {totalPorts} ports</span>
-          </div>
-          <p className="text-xs text-emerald-600 font-medium mt-1">
-            {Math.round((upPorts / (totalPorts || 1)) * 100)}% ports active
-          </p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">PoE PSE delivery</span>
-            <div className="w-8 h-8 rounded-xl bg-amber-50 flex items-center justify-center text-amber-600">
-              <Zap className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-slate-900">{poePorts}</span>
-            <span className="text-xs text-amber-600 font-medium">ports active</span>
-          </div>
-          <p className="text-xs text-slate-400 mt-1">48V Passive & 802.3at PoE</p>
-        </div>
-
-        <div className="bg-white rounded-2xl border border-slate-100/90 shadow-[0_2px_12px_-2px_rgba(0,0,0,0.03)] p-5">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500">Switch chip</span>
-            <div className="w-8 h-8 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600">
-              <Layers className="w-4 h-4" />
-            </div>
-          </div>
-          <div className="mt-3 flex items-baseline gap-2">
-            <span className="text-xl font-bold text-slate-900">Marvell 98DX</span>
-          </div>
-          <p className="text-xs text-slate-500 mt-1">Hardware offloading active</p>
-        </div>
+      {/* Summary Stat Cards (Dashboard Executive Style) */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
+        <MetricCard
+          title="Total interfaces"
+          value={`${totalPorts}`}
+          subtext="8x RJ45 GbE + 2x SFP+ 10G"
+          trend="+0%"
+          trendType="neutral"
+          color="sky"
+          data={[10, 10, 10, 10, 10, 10, totalPorts]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["12", "10", "8", "6"]}
+          activePoint={6}
+          activeLabel={`${totalPorts} Ports`}
+        />
+        <MetricCard
+          title="Active ports (Up)"
+          value={`${upPorts}`}
+          subtext={`${Math.round((upPorts / (totalPorts || 1)) * 100)}% ports active`}
+          trend="+12.5%"
+          trendType="up"
+          color="emerald"
+          data={[6, 7, 7, 8, 7, 8, upPorts]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["10", "8", "6", "4"]}
+          activePoint={6}
+          activeLabel={`${upPorts} Active`}
+        />
+        <MetricCard
+          title="PoE active delivery"
+          value={`${poePorts}`}
+          subtext="48V Passive & 802.3at PoE"
+          trend="+2.0%"
+          trendType="up"
+          color="amber"
+          data={[4, 4, 5, 5, 6, 5, poePorts]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["8", "6", "4", "2"]}
+          activePoint={6}
+          activeLabel={`${poePorts} Active`}
+        />
+        <MetricCard
+          title="Total throughput"
+          value="1.24 Gbps"
+          subtext="wire-speed hw offloaded"
+          trend="+8.4%"
+          trendType="up"
+          color="purple"
+          data={[0.82, 0.95, 0.88, 1.05, 1.18, 1.12, 1.24]}
+          labels={["Sat", "Sun", "Mon", "Tue", "Wed", "Thu", "Fri"]}
+          yTicks={["1.5G", "1.2G", "0.9G", "0.6G"]}
+          activePoint={6}
+          activeLabel="1.24 Gbps"
+        />
       </div>
 
       {/* Routerboard Physical Port Matrix (Visual Chassis) */}
