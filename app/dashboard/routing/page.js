@@ -46,20 +46,20 @@ export default function RoutingPage() {
       const dst = (r.dstAddress || "").toLowerCase();
       const gw = (r.gateway || "").toLowerCase();
       const iface = (r.interface || "").toLowerCase();
-      const type = (r.type || "").toLowerCase();
+      const typeStr = (r.type || r.protocol || "").toLowerCase();
 
       const matchesSearch =
         !q ||
         dst.includes(q) ||
         gw.includes(q) ||
         iface.includes(q) ||
-        type.includes(q);
+        typeStr.includes(q);
 
       const matchesType =
         routeTypeFilter === "all" ||
-        (routeTypeFilter === "static" && r.type?.includes("Static")) ||
-        (routeTypeFilter === "connected" && r.type?.includes("Connected")) ||
-        (routeTypeFilter === "dynamic" && (r.type?.includes("OSPF") || r.type?.includes("BGP")));
+        (routeTypeFilter === "static" && typeStr.includes("static")) ||
+        (routeTypeFilter === "connected" && (typeStr.includes("connect") || typeStr.includes("connected"))) ||
+        (routeTypeFilter === "dynamic" && (typeStr.includes("ospf") || typeStr.includes("bgp")));
 
       return matchesSearch && matchesType;
     });
@@ -311,17 +311,24 @@ export default function RoutingPage() {
                     </td>
                     <td className="py-3 px-4 font-mono text-slate-600">{r.distance}</td>
                     <td className="py-3 px-4">
-                      <span
-                        className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${
-                          r.type.includes("Connected")
-                            ? "bg-blue-50 text-blue-700 border border-blue-100"
-                            : r.type.includes("Static")
-                            ? "bg-purple-50 text-purple-700 border border-purple-100"
-                            : "bg-emerald-50 text-emerald-700 border border-emerald-100"
-                        }`}
-                      >
-                        {r.type}
-                      </span>
+                      {(() => {
+                        const routeType = r.type || r.protocol || "Static";
+                        const isConnected = routeType.toLowerCase().includes("connect");
+                        const isStatic = routeType.toLowerCase().includes("static");
+                        return (
+                          <span
+                            className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-semibold ${
+                              isConnected
+                                ? "bg-blue-50 text-blue-700 border border-blue-100"
+                                : isStatic
+                                ? "bg-purple-50 text-purple-700 border border-purple-100"
+                                : "bg-emerald-50 text-emerald-700 border border-emerald-100"
+                            }`}
+                          >
+                            {routeType}
+                          </span>
+                        );
+                      })()}
                     </td>
                     <td className="py-3 px-4">
                       <span className="inline-flex items-center gap-1.5 text-emerald-700 font-semibold text-[11px]">

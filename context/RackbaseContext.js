@@ -125,8 +125,13 @@ export function RackbaseProvider({ children }) {
       }
 
       const savedRoutes = localStorage.getItem("rackbase_routing_table");
-      if (savedRoutes) setRoutingTable(JSON.parse(savedRoutes));
-      else {
+      if (savedRoutes) {
+        const parsed = JSON.parse(savedRoutes);
+        const normalized = Array.isArray(parsed)
+          ? parsed.map((r) => ({ ...r, type: r.type || r.protocol || "Static" }))
+          : initialRoutingTable;
+        setRoutingTable(normalized);
+      } else {
         setRoutingTable(initialRoutingTable);
         localStorage.setItem("rackbase_routing_table", JSON.stringify(initialRoutingTable));
       }
